@@ -1,7 +1,7 @@
-# Your name
+# Sebastian Saker
 ## CS50 Winter 2020, Tiny Search Engine
 
-GitHub username:
+GitHub username: ssaker18
 
 To build, run `make`.
 

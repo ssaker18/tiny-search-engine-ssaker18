@@ -9,7 +9,7 @@ MAKE = make
 ############## default: make all libs and programs ##########
 all: 
 	$(MAKE) -C libcs50
-	$(MAKE) -C common
+#	$(MAKE) -C common
 	$(MAKE) -C crawler
 #	$(MAKE) -C indexer
 #	$(MAKE) -C querier
@@ -29,7 +29,7 @@ clean:
 	rm -f *~
 	rm -f TAGS
 	$(MAKE) -C libcs50 clean
-	$(MAKE) -C common clean
+#	$(MAKE) -C common clean
 	$(MAKE) -C crawler clean
 #	$(MAKE) -C indexer clean
 #	$(MAKE) -C querier clean

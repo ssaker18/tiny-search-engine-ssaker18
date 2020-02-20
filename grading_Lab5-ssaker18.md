@@ -1,7 +1,7 @@
 # Grading: Lab 5, Sebastian Saker
-## Total: 48/100
+## Total: 56/100
 
-Raw Score: 68/100
+Raw Score: 76/100
 
 * -20 for 2 days late.
 
@@ -46,7 +46,7 @@ or your `IMPLEMENTATION.md`. It makes it harder to read!
 
 ### Testing: 7/10
 
-* -1 for not separately testing undreadable directory and unwritable file tests.
+* -1 for not separately testing unreadable directory and unwritable file tests.
 * -2 for not pushing `testing.out` to your repo.
 
 ### Coding Style: 18/20
@@ -55,17 +55,36 @@ or your `IMPLEMENTATION.md`. It makes it harder to read!
 * You reuse the code for `webpage_getNextWord`, but you could have just called this method!
 You could have made a new `webpage_t` with the proper HTML, then called the function. That way you avoid rewriting an identical function.
 
-### Functionality: 14/30
+### Functionality: 22/30
 
-* -16 for failing all of our test cases with `indexer`. See below.
+* -8 for failing all of our test cases with `indexer`. See below.
 * Your code segfaults when there's lots of HTML. For instance,
 `./indexer ~cs50/data/tse-output/toscrape-depth-0 test.index` leads to a segfault.
 This is because you assume in your code that a file doesn't have more than 4000 characters.
-This assumption is quickly incorrect.
+This assumption is quickly incorrect. Instead, you should use heap memory
+and resize when your buffer is full.
 * Even with proper inputs, your `indexer` eventually leads to a seg fault.
 It appears the problem is you are trying to do a double free on line 226 of `pagedir.c`
 (in your `extract_words` function). This is fixed by wrapping these two lines (225 and 226)
 in an `else`.
+* When both of these errors are fixed, there still is an issue with
+`indextest`. You save your index with a colon after each word, and don't
+account for it when you call `index_load`. `indextest` then gives a file
+where each word is followed by 2 colons.
+* Also, on line 186 of `pagedir.c`, you have
+```
+snprintf(buffer, sizeof(int) + sizeof(char) * strlen(dir), "%s/%d", dir, id);
+```
+But `sizeof(int)` is not the string length you are looking for. In fact, in
+this case, it is 2. Thus if the id of the current page is over 2 digits (in toscrape, for instance),
+the id will not be printed all the way. This causes your code to run
+indefinitely (infinite loop) in these cases because instead of reading file 586
+(which doesn't exist in toscrape-depth-2), it reads file 58.
+* Even when all of these errors are accounted for, `indexer` is building the
+wrong index. Just try `~cs50/data/tse-output/letters-depth-2` and compare the
+resulting index with `~cs50/data/tse-outtput/letters-index-2`. It seems to be
+because you forget to strip the first two lines of each page file, containing
+the URL and depth of the current page.
 
 ### Memory Leaks: 6/10
 

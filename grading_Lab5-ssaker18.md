@@ -1,7 +1,7 @@
 # Grading: Lab 5, Sebastian Saker
-## Total: 47/100
+## Total: 48/100
 
-Raw Score: 67/100
+Raw Score: 68/100
 
 * -20 for 2 days late.
 
@@ -13,9 +13,9 @@ Raw Score: 67/100
 with `.gch` files in your `libcs50` directory.
 * `indextester` was supposed to be called `indextest`.
 
-### Makefiles: 9/10
+### Makefiles: 10/10
 
-* -1: Initially did not compile. Got the following errors:
+* Initially did not compile. Got the following errors:
 ```
 /usr/bin/ld: ../common/common.a(pagedir.o): in function `extract_words':
 /net/ifs-users/jaswenberg/cs50grading/lab5/tiny-search-engine-ssaker18/common/pagedir.c:216: undefined reference to `counters_new'

@@ -62,28 +62,28 @@ bool isCrawlerDirectory(char *dir)
 }
 
 //THIS IS FROM CRAWLER WHICH I MESSED UP
-// /**************** save_page ****************/
-// //save page's information to a directory that will contain crawler's found pages
-// void save_page(webpage_t *page, const char *fname, int id)
-// {
-//     char buffer[50];  //This will be our string buffer used to append the id to the filepath
-//     char buffer2[50]; //This will be the string buffer that will be used to add in a
-//     // .crawler file to the directory
+/**************** save_page ****************/
+//save page's information to a directory that will contain crawler's found pages
+void save_page(webpage_t *page, const char *fname, int id)
+{
+    char buffer[50];  //This will be our string buffer used to append the id to the filepath
+    char buffer2[50]; //This will be the string buffer that will be used to add in a
+    // .crawler file to the directory
 
-//     snprintf(buffer2, 50, "%s/.crawler", fname);
-//     FILE *fp2 = fopen(buffer2, "w"); //creates a .crawler file for
-//     //checking if crawler created this directory
-//     assertp(fp2, "cannot create a .crawler file for this directory\n"); //check if file was created
-//     fclose(fp2);
+    snprintf(buffer2, 50, "%s/.crawler", fname);
+    FILE *fp2 = fopen(buffer2, "w"); //creates a .crawler file for
+    //checking if crawler created this directory
+    assertp(fp2, "cannot create a .crawler file for this directory\n"); //check if file was created
+    fclose(fp2);
 
-//     snprintf(buffer, 51, "%s/%d", fname, id);      //our buffer will now be our new page's file path
-//     FILE *fp = fopen(buffer, "w");                 //creates an empty file for writing
-//     assertp(fp, "cannot open file for writing\n"); //check if file can be created and wrote to
+    snprintf(buffer, 51, "%s/%d", fname, id);      //our buffer will now be our new page's file path
+    FILE *fp = fopen(buffer, "w");                 //creates an empty file for writing
+    assertp(fp, "cannot open file for writing\n"); //check if file can be created and wrote to
 
-//     fprintf(fp, "%s\n%d\n%s", webpage_getURL(page), webpage_getDepth(page), webpage_getHTML(page));
+    fprintf(fp, "%s\n%d\n%s", webpage_getURL(page), webpage_getDepth(page), webpage_getHTML(page));
 
-//     fclose(fp);
-// }
+    fclose(fp);
+}
 
 //PLEASE NOTE: THIS CODE IS 'BASICALLY' copied from webpage.c's webpage_getNextWord
 //This will get the next word in an html-styled string
@@ -157,13 +157,15 @@ char *html_getNextWord(char *html, int *pos)
     }
 }
 
+//MAKE IT SO IT DOES WORDS LESS THAN 3 CHARS,
+// THEN VALIDATE THAT WITHIN querier.c
 //check if the string is alphabetical (NO NUMBERS OR OTHER NON-ALPHABETICALS)
 bool is_alpha_str(char *result)
 {
-    if (strlen(result) < 3)
-    {
-        return false; //We cannot have words less than 3 characters
-    }
+    // if (strlen(result) < 3)
+    // {
+    //     return false; //We cannot have words less than 3 characters
+    // }
     int status;
     int i = 0;
     for (i = 0; i < strlen(result); i++)

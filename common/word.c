@@ -22,16 +22,15 @@
 
 //Normalize our word to lowercase
 //caller is responsible for freeing return string
-char *to_lowercase(char *result)
+void to_lowercase(char *result)
 {
     int i = 0;
     char c; //lowercased char
-    char *toReturn = malloc(sizeof(char) * strlen(result) + 1);
+    //char *toReturn = malloc(sizeof(char) * strlen(result) + 1);
     for (i = 0; i < strlen(result); i++)
     {
         c = tolower(result[i]);
-        toReturn[i] = c;
+        result[i] = c;
     }
-    free(result);
-    return toReturn;
+    //free(result);
 }
